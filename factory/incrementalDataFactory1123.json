@@ -1,0 +1,9 @@
+{
+	"name": "incrementalDataFactory1123",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "cc540b86-784e-436c-94be-129b1c21f936",
+		"tenantId": "90d12e33-ad5e-4e82-8b5e-82bff0658ae0"
+	}
+}
