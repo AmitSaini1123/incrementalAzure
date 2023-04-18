@@ -5,10 +5,10 @@
 		"factoryName": {
 			"value": "incrementalDataFactory1123"
 		},
-		"SqlServer1_connectionString": {
+		"AzureDataLakeStorageLinkedServer_accountKey": {
 			"value": ""
 		},
-		"AzureDataLakeStorageLinkedServer_accountKey": {
+		"SqlServer1_connectionString": {
 			"value": ""
 		},
 		"AzureDataLakeStorageLinkedServer_properties_typeProperties_url": {
