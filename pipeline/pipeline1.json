@@ -24,6 +24,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -77,6 +78,7 @@
 								],
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -119,7 +121,7 @@
 							"typeProperties": {
 								"variableName": "data2",
 								"value": {
-									"value": "@join(variables('data'),decodeUriComponent('%0A'))",
+									"value": "@join(variables('data'),decodeUriComponent('%0A'))\n",
 									"type": "Expression"
 								}
 							}
@@ -129,7 +131,7 @@
 							"type": "Copy",
 							"dependsOn": [
 								{
-									"activity": "Set variable1",
+									"activity": "Set variable3",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -150,7 +152,7 @@
 										{
 											"name": "dates",
 											"value": {
-												"value": "@variables('data2')",
+												"value": "@variables('data2')\n",
 												"type": "Expression"
 											}
 										}
@@ -178,6 +180,52 @@
 								"enableStaging": false,
 								"translator": {
 									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"type": "String",
+												"ordinal": 1
+											},
+											"sink": {
+												"type": "String",
+												"physicalType": "String",
+												"ordinal": 1
+											}
+										},
+										{
+											"source": {
+												"type": "String",
+												"ordinal": 2
+											},
+											"sink": {
+												"type": "String",
+												"physicalType": "String",
+												"ordinal": 2
+											}
+										},
+										{
+											"source": {
+												"type": "String",
+												"ordinal": 3
+											},
+											"sink": {
+												"type": "String",
+												"physicalType": "String",
+												"ordinal": 3
+											}
+										},
+										{
+											"source": {
+												"name": "dates",
+												"type": "String"
+											},
+											"sink": {
+												"type": "String",
+												"physicalType": "String",
+												"ordinal": 4
+											}
+										}
+									],
 									"typeConversion": true,
 									"typeConversionSettings": {
 										"allowDataTruncation": true,
@@ -197,6 +245,26 @@
 									"type": "DatasetReference"
 								}
 							]
+						},
+						{
+							"name": "Set variable3",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Set variable1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "data4",
+								"value": {
+									"value": "@formatDateTime(variables('data2'),'yyyMMdd_HHmmss')",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
@@ -210,6 +278,12 @@
 				"type": "Array"
 			},
 			"data2": {
+				"type": "String"
+			},
+			"new data": {
+				"type": "String"
+			},
+			"data4": {
 				"type": "String"
 			}
 		},
